@@ -1,0 +1,196 @@
+/* latin */
+@font-face {
+  font-family: "Orbitron";
+  font-style: normal;
+  font-weight: 400;
+  src: url(/font/yMJRMIlzdpvBhQQL_Qq7dy1biN15.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: "Orbitron";
+  font-style: normal;
+  font-weight: 500;
+  src: url(/font/yMJRMIlzdpvBhQQL_Qq7dy1biN15.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: "Orbitron";
+  font-style: normal;
+  font-weight: 600;
+  src: url(/font/yMJRMIlzdpvBhQQL_Qq7dy1biN15.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: "Orbitron";
+  font-style: normal;
+  font-weight: 700;
+  src: url(/font/yMJRMIlzdpvBhQQL_Qq7dy1biN15.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: "Orbitron";
+  font-style: normal;
+  font-weight: 800;
+  src: url(/font/yMJRMIlzdpvBhQQL_Qq7dy1biN15.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: "Orbitron";
+  font-style: normal;
+  font-weight: 900;
+  src: url(/font/yMJRMIlzdpvBhQQL_Qq7dy1biN15.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+/* font above */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background: rgb(63, 94, 251);
+  background: radial-gradient(
+    circle,
+    rgba(63, 94, 251, 1) 30%,
+    rgba(9, 1, 37, 1) 100%
+  );
+  font-family: "Orbitron", sans-serif;
+  color: white;
+}
+
+.eyeOne,
+.eyeTwo {
+  height: 30px;
+  width: 50px;
+  background-color: black;
+  animation-name: backgroundColorChanger;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.container {
+  border: 2px white solid;
+  border-radius: 25px;
+  margin: 10px 10px;
+}
+
+.eyes {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 40px 0px;
+  margin: 10px 10px;
+}
+
+@keyframes backgroundColorChanger {
+  0% {
+    background: #d41103;
+  }
+  25% {
+    background: #199c54;
+  }
+  50% {
+    background: #8d02b8;
+  }
+  75% {
+    background: #c7d404;
+  }
+  100% {
+    background: #ff9b85;
+  }
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.location {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  font-size: 16px;
+}
+
+.message {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.today,
+.weather_1,
+.weather_2 {
+  padding: 0px 5px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
+  text-align: center;
+  font-size: 14px;
+}
+
+.location {
+  text-align: center;
+}
+
+.message img {
+  display: block;
+  margin: 0 auto;
+  max-height: 70px;
+}
+
+#weekday,
+#currentDay {
+  font-weight: bold;
+}
+
+#searchId,
+#buttonId {
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+@media screen and (min-width: 600px) {
+  .container {
+    padding: 0% 20%;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .container {
+    padding: 0% 20%;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .container {
+    padding: 0% 25%;
+  }
+}

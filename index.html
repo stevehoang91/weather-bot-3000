@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="js.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="icons/favicon-16x16.png"
+    />
+    <title>WEATHER-BOT 3000</title>
+  </head>
+  <body>
+    <section>
+      <h1 class="title">WEATHER-BOT-3000</h1>
+      <section class="container">
+        <div class="eyes">
+          <div class="eyeOne"></div>
+          <div class="eyeTwo"></div>
+        </div>
+        <input
+          type="text"
+          name="search"
+          id="searchId"
+          placeholder="Search by location"
+        />
+        <button type="submit" class="button" id="buttonId">Search</button>
+      </section>
+      <h2 id="suburb" class="location">Give your location to me</h2>
+    </section>
+    <section class="message">
+      <div class="today">
+        <p id="currentDay"></p>
+        <p id="currentWeather">I predict that the weather will be...</p>
+        <p id="currentTemp"></p>
+        <p id="currentFeelsLike"></p>
+        <img id="image" src="/icons/invisible.png" alt="weatherIcon" />
+      </div>
+      <div id="weather"></div>
+    </section>
+  </body>
+</html>
