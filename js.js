@@ -1,36 +1,24 @@
-const apiKey = "5dd60cb12931e87d22344f75a802e824";
-const weekday = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-const d = new Date();
+import { apiKey, weekday } from "./config.js";
+import {
+  getWeatherHTML,
+  domAddImage,
+  domAddWeather,
+  domAddTemp,
+} from "./html.js";
 
-let apiDataWeather;
+const d = new Date();
 let locationLatitude;
 let locationLongitude;
 let geoSuburb;
 let geoCity;
 let state;
 const weatherHolder = document.getElementById("weather");
+const searchLocationRef = document.getElementById("searchId");
+const submit = document.getElementById("buttonId");
 
-function getWeatherHTML(day, i) {
-  return `<div class="weather_${i}">
-               <p id="weekday">${weekday[d.getDay() + i]}</p>
-               <p>I predict there will be ${
-                 day.weather[0].main
-               }; more specifically ${day.weather[0].description}</p>
-              <p>The temperature will be ${day.temp.day}°C</p>
-               <p>But will feel like ${day.feels_like.day}°C</p>
-               <img id="image" src="/icons/${
-                 day.weather[0].icon
-               }.svg" alt="weatherIcon" />
-              </div>`;
-}
+submit.addEventListener("click", () => {
+  forwardGeo();
+});
 
 async function getWeather() {
   try {
@@ -38,8 +26,9 @@ async function getWeather() {
       `https://api.openweathermap.org/data/2.5/onecall?lat=${locationLatitude}&lon=${locationLongitude}&units=metric&exclude=hourly,minutely&appid=${apiKey}`
     );
     state = { days: weatherApi.data.daily };
+    weatherHolder.innerHTML = "";
     for (let i = 1; i < 3; i++) {
-      const html = getWeatherHTML(state.days[i], i);
+      const html = getWeatherHTML(state.days[i], i, d, weekday);
       weatherHolder.insertAdjacentHTML("beforeend", html);
     }
     let currentState = weatherApi.data.current;
@@ -57,17 +46,18 @@ async function getWeather() {
   }
 }
 
-function domAddImage(icon) {
-  document.getElementById("image").src = `/icons/${icon}.svg`;
-}
-
-function domAddWeather(id, weather, desc) {
-  document.getElementById(id).textContent =
-    "Currently, we are experiencing " + weather + "; more specifically " + desc;
-}
-
-function domAddTemp(id, feel, temperature) {
-  document.getElementById(id).textContent = feel + temperature + "°C";
+async function forwardGeo() {
+  console.log(searchLocationRef.value);
+  const locationClick = await axios.get(
+    `https://api.opencagedata.com/geocode/v1/json?q=${searchLocationRef.value}&key=bcf7e6bbd41d402ea9474185da7f859f`
+  );
+  let locationState = locationClick.data.results[0].geometry;
+  console.log(locationState);
+  console.log(locationState.lat, locationState.lng);
+  locationLatitude = locationState.lat;
+  locationLongitude = locationState.lng;
+  getWeather();
+  reverseGeo();
 }
 
 function getLocation() {
@@ -87,26 +77,22 @@ function error() {
 
 function domAddDays() {
   document.getElementById("currentDay").textContent = weekday[d.getDay() + 0];
-  // document.getElementById("tomorrowDay").textContent = weekday[d.getDay() + 1];
-  // document.getElementById("tomorrow2Day").textContent = weekday[d.getDay() + 2];
 }
 
 async function reverseGeo() {
   const geoApi = await axios.get(
     `https://api.opencagedata.com/geocode/v1/json?q=${locationLatitude}+${locationLongitude}&key=bcf7e6bbd41d402ea9474185da7f859f`
   );
-  geoSuburb = geoApi.data.results[0].components.city_district;
+  geoSuburb = geoApi.data.results[0].components.city_district
+    ? geoApi.data.results[0].components.city_district + ", "
+    : " ";
   geoCity = geoApi.data.results[0].components.city;
   domAddSuburb();
 }
 
 function domAddSuburb() {
   document.getElementById("suburb").textContent =
-    "You are in " + geoSuburb + ", " + geoCity;
-}
-
-function forwardGeo() {
-  `https://api.opencagedata.com/geocode/v1/json?q=${PLACENAME}&key=bcf7e6bbd41d402ea9474185da7f859f`;
+    "You are in " + geoSuburb + geoCity;
 }
 
 getLocation();
