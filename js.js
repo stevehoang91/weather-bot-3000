@@ -1,12 +1,13 @@
-import { apiKey, weekday } from "./config.js";
+import { apiKey, weekday, geoApiKey } from "./config.js";
 import {
   getWeatherHTML,
   domAddImage,
   domAddWeather,
   domAddTemp,
-} from "./html.js";
+} from "./functions.js";
 
 const d = new Date();
+
 let locationLatitude;
 let locationLongitude;
 let geoSuburb;
@@ -49,7 +50,7 @@ async function getWeather() {
 async function forwardGeo() {
   console.log(searchLocationRef.value);
   const locationClick = await axios.get(
-    `https://api.opencagedata.com/geocode/v1/json?q=${searchLocationRef.value}&key=bcf7e6bbd41d402ea9474185da7f859f`
+    `https://api.opencagedata.com/geocode/v1/json?q=${searchLocationRef.value}&key=${geoApiKey}`
   );
   let locationState = locationClick.data.results[0].geometry;
   console.log(locationState);
@@ -78,16 +79,20 @@ function error() {
 function domAddDays() {
   document.getElementById("currentDay").textContent = weekday[d.getDay() + 0];
 }
-
+//Add try catch on reverse GEO in case of no location
 async function reverseGeo() {
-  const geoApi = await axios.get(
-    `https://api.opencagedata.com/geocode/v1/json?q=${locationLatitude}+${locationLongitude}&key=bcf7e6bbd41d402ea9474185da7f859f`
-  );
-  geoSuburb = geoApi.data.results[0].components.city_district
-    ? geoApi.data.results[0].components.city_district + ", "
-    : " ";
-  geoCity = geoApi.data.results[0].components.city;
-  domAddSuburb();
+  try {
+    const geoApi = await axios.get(
+      `https://api.opencagedata.com/geocode/v1/json?q=${locationLatitude}+${locationLongitude}&key=${geoApiKey}`
+    );
+    geoSuburb = geoApi.data.results[0].components.city_district
+      ? geoApi.data.results[0].components.city_district + ", "
+      : " ";
+    geoCity = geoApi.data.results[0].components.city;
+    domAddSuburb();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function domAddSuburb() {

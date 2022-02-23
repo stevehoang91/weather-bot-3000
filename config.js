@@ -9,3 +9,5 @@ export const weekday = [
     "Friday",
     "Saturday",
   ];
+
+ export const geoApiKey = "bcf7e6bbd41d402ea9474185da7f859f";
