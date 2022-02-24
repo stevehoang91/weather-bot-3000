@@ -1,7 +1,7 @@
 export function getWeatherHTML(day, i, d, weekday) {
   return `<div class="weather_${i}">
                  <p id="weekday">${weekday[d.getDay() + i]}</p>
-                 <p>I predict there will be ${
+                 <p>I predict the weather will be ${
                    day.weather[0].main
                  }; more specifically ${day.weather[0].description}</p>
                 <p>The temperature will be ${day.temp.day}°C</p>
