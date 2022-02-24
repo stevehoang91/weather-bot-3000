@@ -12,6 +12,7 @@ let locationLatitude;
 let locationLongitude;
 let geoSuburb;
 let geoCity;
+let geoCountry;
 let state;
 const weatherHolder = document.getElementById("weather");
 const searchLocationRef = document.getElementById("searchId");
@@ -53,8 +54,6 @@ async function forwardGeo() {
     `https://api.opencagedata.com/geocode/v1/json?q=${searchLocationRef.value}&key=${geoApiKey}`
   );
   let locationState = locationClick.data.results[0].geometry;
-  console.log(locationState);
-  console.log(locationState.lat, locationState.lng);
   locationLatitude = locationState.lat;
   locationLongitude = locationState.lng;
   getWeather();
@@ -79,7 +78,7 @@ function error() {
 function domAddDays() {
   document.getElementById("currentDay").textContent = weekday[d.getDay() + 0];
 }
-//Add try catch on reverse GEO in case of no location
+
 async function reverseGeo() {
   try {
     const geoApi = await axios.get(
@@ -88,7 +87,12 @@ async function reverseGeo() {
     geoSuburb = geoApi.data.results[0].components.city_district
       ? geoApi.data.results[0].components.city_district + ", "
       : " ";
-    geoCity = geoApi.data.results[0].components.city;
+    geoCity = geoApi.data.results[0].components.city
+      ? geoApi.data.results[0].components.city + ", "
+      : " ";
+    geoCountry = geoApi.data.results[0].components.country
+      ? geoApi.data.results[0].components.country
+      : "I cannot find this location";
     domAddSuburb();
   } catch (error) {
     console.log(error);
@@ -97,7 +101,7 @@ async function reverseGeo() {
 
 function domAddSuburb() {
   document.getElementById("suburb").textContent =
-    "You are in " + geoSuburb + geoCity;
+    "You are in " + geoSuburb + geoCity + geoCountry;
 }
 
 getLocation();
