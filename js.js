@@ -6,7 +6,6 @@ import {
   domAddTemp,
   domAddDays,
 } from "./functions.js";
-
 const d = new Date();
 let locationLatitude;
 let locationLongitude;
@@ -17,7 +16,6 @@ let state;
 const weatherHolder = document.getElementById("weather");
 const searchLocationRef = document.getElementById("searchId");
 const submit = document.getElementById("buttonId");
-
 //Listens for submit click and runs forward location function
 submit.addEventListener("click", () => {
   forwardGeo();
