@@ -10,7 +10,7 @@ import {
 const d = new Date();
 let locationLatitude;
 let locationLongitude;
-let geoSuburb;
+let geoDistrict;
 let geoCity;
 let geoCountry;
 let state;
@@ -18,9 +18,11 @@ const weatherHolder = document.getElementById("weather");
 const searchLocationRef = document.getElementById("searchId");
 const submit = document.getElementById("buttonId");
 
+//Listens for submit click and runs forward location function
 submit.addEventListener("click", () => {
   forwardGeo();
 });
+//Grabs data from weather API, inserts information to the DOM
 async function getWeather() {
   try {
     const weatherApi = await axios.get(
@@ -46,6 +48,7 @@ async function getWeather() {
     console.log(error);
   }
 }
+//Finds lat and long from user submission, returns getWeather function with new desired location
 async function forwardGeo() {
   console.log(searchLocationRef.value);
   const locationClick = await axios.get(
@@ -57,6 +60,7 @@ async function forwardGeo() {
   getWeather();
   reverseGeo();
 }
+//Getting user location from navigator
 function getLocation() {
   navigator.geolocation.getCurrentPosition(success, error);
 }
@@ -74,7 +78,7 @@ async function reverseGeo() {
     const geoApi = await axios.get(
       `https://api.opencagedata.com/geocode/v1/json?q=${locationLatitude}+${locationLongitude}&key=${geoApiKey}`
     );
-    geoSuburb = geoApi.data.results[0].components.city_district
+    geoDistrict = geoApi.data.results[0].components.city_district
       ? geoApi.data.results[0].components.city_district + ", "
       : " ";
     geoCity = geoApi.data.results[0].components.city
@@ -83,13 +87,14 @@ async function reverseGeo() {
     geoCountry = geoApi.data.results[0].components.country
       ? geoApi.data.results[0].components.country
       : "I cannot find this location";
-    domAddSuburb();
+    domAddLocationDetails();
   } catch (error) {
     console.log(error);
   }
 }
-function domAddSuburb() {
-  document.getElementById("suburb").textContent =
-    "You are in " + geoSuburb + geoCity + geoCountry;
+//Returns details of location
+function domAddLocationDetails() {
+  document.getElementById("locationId").textContent =
+    "You are in " + geoDistrict + geoCity + geoCountry;
 }
 getLocation();

@@ -1,3 +1,4 @@
+//function running of a loop to create HTML
 export function getWeatherHTML(day, i, d, weekday) {
   return `<div class="weather_${i}">
                  <p id="weekday">${weekday[d.getDay() + i]}</p>
@@ -11,11 +12,11 @@ export function getWeatherHTML(day, i, d, weekday) {
                  }.svg" alt="weatherIcon" />
                 </div>`;
 }
-
+//function to add applicable icon
 export function domAddImage(icon) {
   document.getElementById("image").src = `/icons/${icon}.svg`;
 }
-
+//functions to add details to the DOM
 export function domAddWeather(id, weather, desc) {
   document.getElementById(id).textContent =
     "Currently, we are experiencing " + weather + "; more specifically " + desc;
