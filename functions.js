@@ -24,3 +24,7 @@ export function domAddWeather(id, weather, desc) {
 export function domAddTemp(id, feel, temperature) {
   document.getElementById(id).textContent = feel + temperature + "°C";
 }
+
+export function domAddDays(weekday, d) {
+  document.getElementById("currentDay").textContent = weekday[d.getDay() + 0];
+}

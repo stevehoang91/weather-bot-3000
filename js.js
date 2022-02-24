@@ -4,10 +4,10 @@ import {
   domAddImage,
   domAddWeather,
   domAddTemp,
+  domAddDays,
 } from "./functions.js";
 
 const d = new Date();
-
 let locationLatitude;
 let locationLongitude;
 let geoSuburb;
@@ -21,7 +21,6 @@ const submit = document.getElementById("buttonId");
 submit.addEventListener("click", () => {
   forwardGeo();
 });
-
 async function getWeather() {
   try {
     const weatherApi = await axios.get(
@@ -42,12 +41,11 @@ async function getWeather() {
     domAddTemp("currentTemp", "The temperature is ", currentState.temp);
     domAddTemp("currentFeelsLike", "But feels like ", currentState.feels_like);
     domAddImage(currentState.weather[0].icon);
-    domAddDays();
+    domAddDays(weekday, d);
   } catch (error) {
     console.log(error);
   }
 }
-
 async function forwardGeo() {
   console.log(searchLocationRef.value);
   const locationClick = await axios.get(
@@ -59,26 +57,18 @@ async function forwardGeo() {
   getWeather();
   reverseGeo();
 }
-
 function getLocation() {
   navigator.geolocation.getCurrentPosition(success, error);
 }
-
 function success(position) {
   locationLatitude = position.coords.latitude;
   locationLongitude = position.coords.longitude;
   getWeather();
   reverseGeo();
 }
-
 function error() {
   console.log("ERROR: Could not retrieve location");
 }
-
-function domAddDays() {
-  document.getElementById("currentDay").textContent = weekday[d.getDay() + 0];
-}
-
 async function reverseGeo() {
   try {
     const geoApi = await axios.get(
@@ -98,10 +88,8 @@ async function reverseGeo() {
     console.log(error);
   }
 }
-
 function domAddSuburb() {
   document.getElementById("suburb").textContent =
     "You are in " + geoSuburb + geoCity + geoCountry;
 }
-
 getLocation();
