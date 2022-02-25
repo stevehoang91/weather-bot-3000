@@ -6,6 +6,7 @@ import {
   domAddTemp,
   domAddDays,
   domCurrentWeather,
+  domAddLocationDetails,
 } from "./functions.js";
 const d = new Date();
 let locationLatitude;
@@ -78,14 +79,9 @@ async function reverseGeo() {
     geoCountry = geoApi.data.results[0].components.country
       ? geoApi.data.results[0].components.country
       : "I cannot find this location";
-    domAddLocationDetails();
+    domAddLocationDetails(geoDistrict, geoCity, geoCountry);
   } catch (error) {
     console.log(error);
   }
-}
-//Returns details of location
-function domAddLocationDetails() {
-  document.getElementById("locationId").textContent =
-    "You are in " + geoDistrict + geoCity + geoCountry;
 }
 getLocation();

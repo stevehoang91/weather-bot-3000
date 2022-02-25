@@ -41,3 +41,7 @@ export function domCurrentWeather(weekday, d, currentState) {
   domAddImage(currentState.weather[0].icon);
   domAddDays(weekday, d);
 }
+export function domAddLocationDetails(geoDistrict, geoCity, geoCountry) {
+  document.getElementById("locationId").textContent =
+    "You are in " + geoDistrict + geoCity + geoCountry;
+}
