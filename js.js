@@ -5,6 +5,7 @@ import {
   domAddWeather,
   domAddTemp,
   domAddDays,
+  domCurrentWeather,
 } from "./functions.js";
 const d = new Date();
 let locationLatitude;
@@ -33,15 +34,7 @@ async function getWeather() {
       weatherHolder.insertAdjacentHTML("beforeend", html);
     }
     let currentState = weatherApi.data.current;
-    domAddWeather(
-      "currentWeather",
-      currentState.weather[0].main,
-      currentState.weather[0].description
-    );
-    domAddTemp("currentTemp", "The temperature is ", currentState.temp);
-    domAddTemp("currentFeelsLike", "But feels like ", currentState.feels_like);
-    domAddImage(currentState.weather[0].icon);
-    domAddDays(weekday, d);
+    domCurrentWeather(weekday, d, currentState);
   } catch (error) {
     console.log(error);
   }
