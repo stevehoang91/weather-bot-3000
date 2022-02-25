@@ -36,14 +36,11 @@ async function getWeather() {
     }
     let currentState = weatherApi.data.current;
     domCurrentWeather(weekday, d, currentState);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 //Finds lat and long from user submission, returns getWeather function with new desired location
 async function forwardGeo() {
   try {
-    console.log(searchLocationRef.value);
     const locationClick = await axios.get(
       `https://api.opencagedata.com/geocode/v1/json?q=${searchLocationRef.value}&key=${geoApiKey}`
     );
@@ -56,7 +53,6 @@ async function forwardGeo() {
     alert("Sorry, could not find that location");
   }
 }
-
 //Getting user location from navigator
 function getLocation() {
   navigator.geolocation.getCurrentPosition(success, error);
