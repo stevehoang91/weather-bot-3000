@@ -31,14 +31,11 @@ export function domAddDays(weekday, d) {
 }
 
 export function domCurrentWeather(weekday, d, currentState) {
-  domAddWeather(
-    "currentWeather",
-    currentState.weather[0].main,
-    currentState.weather[0].description
-  );
-  domAddTemp("currentTemp", "The temperature is ", currentState.temp);
-  domAddTemp("currentFeelsLike", "But feels like ", currentState.feels_like);
-  domAddImage(currentState.weather[0].icon);
+  const { temp, feels_like, weather } = currentState;
+  domAddWeather("currentWeather", weather[0].main, weather[0].description);
+  domAddTemp("currentTemp", "The temperature is ", temp);
+  domAddTemp("currentFeelsLike", "But feels like ", feels_like);
+  domAddImage(weather[0].icon);
   domAddDays(weekday, d);
 }
 export function domAddLocationDetails(geoDistrict, geoCity, geoCountry) {

@@ -42,16 +42,21 @@ async function getWeather() {
 }
 //Finds lat and long from user submission, returns getWeather function with new desired location
 async function forwardGeo() {
-  console.log(searchLocationRef.value);
-  const locationClick = await axios.get(
-    `https://api.opencagedata.com/geocode/v1/json?q=${searchLocationRef.value}&key=${geoApiKey}`
-  );
-  let locationState = locationClick.data.results[0].geometry;
-  locationLatitude = locationState.lat;
-  locationLongitude = locationState.lng;
-  getWeather();
-  reverseGeo();
+  try {
+    console.log(searchLocationRef.value);
+    const locationClick = await axios.get(
+      `https://api.opencagedata.com/geocode/v1/json?q=${searchLocationRef.value}&key=${geoApiKey}`
+    );
+    let locationState = locationClick.data.results[0].geometry;
+    locationLatitude = locationState.lat;
+    locationLongitude = locationState.lng;
+    getWeather();
+    reverseGeo();
+  } catch (error) {
+    alert("Sorry, could not find that location");
+  }
 }
+
 //Getting user location from navigator
 function getLocation() {
   navigator.geolocation.getCurrentPosition(success, error);
@@ -70,15 +75,10 @@ async function reverseGeo() {
     const geoApi = await axios.get(
       `https://api.opencagedata.com/geocode/v1/json?q=${locationLatitude}+${locationLongitude}&key=${geoApiKey}`
     );
-    geoDistrict = geoApi.data.results[0].components.city_district
-      ? geoApi.data.results[0].components.city_district + ", "
-      : " ";
-    geoCity = geoApi.data.results[0].components.city
-      ? geoApi.data.results[0].components.city + ", "
-      : " ";
-    geoCountry = geoApi.data.results[0].components.country
-      ? geoApi.data.results[0].components.country
-      : "I cannot find this location";
+    const { city_district, city, country } = geoApi.data.results[0].components;
+    geoDistrict = city_district ? city_district + ", " : " ";
+    geoCity = city ? city + ", " : " ";
+    geoCountry = country ? country : "I cannot find this location";
     domAddLocationDetails(geoDistrict, geoCity, geoCountry);
   } catch (error) {
     console.log(error);
