@@ -48,7 +48,10 @@ export function errorLocation() {
 }
 export function errorSearchInput(weatherHolder) {
   weatherHolder.innerHTML = "";
-  document.getElementById("currentDayId").textContent = "";
+  document.getElementById("currentDay").textContent = "";
+  document.getElementById("currentWeather").textContent = "";
+  document.getElementById("currentTemp").textContent = "";
+  document.getElementById("currentFeelsLike").textContent = "";
   document.getElementById("locationId").textContent =
     "Sorry, I could not find that location. Please try again.";
 }

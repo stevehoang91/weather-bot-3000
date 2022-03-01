@@ -39,7 +39,13 @@ async function getWeather() {
     let currentState = weatherApi.data.current;
     domCurrentWeather(weekday, d, currentState);
   } catch (error) {
-    alert(error.message);
+    if (error.response) {
+      alert(
+        "Sorry, we have encountered an error: " + error.response.data.message
+      );
+    } else {
+      alert("API is offline");
+    }
   }
 }
 //Finds lat and long from user submission, returns getWeather function with new desired location
