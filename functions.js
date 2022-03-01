@@ -52,6 +52,7 @@ export function errorSearchInput(weatherHolder) {
   document.getElementById("currentWeather").textContent = "";
   document.getElementById("currentTemp").textContent = "";
   document.getElementById("currentFeelsLike").textContent = "";
+  document.getElementById("image").src = "/icons/invisible.png";
   document.getElementById("locationId").textContent =
     "Sorry, I could not find that location. Please try again.";
 }
