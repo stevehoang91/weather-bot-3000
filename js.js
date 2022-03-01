@@ -45,7 +45,7 @@ async function getWeather() {
         "Sorry, we have encountered an error: " + error.response.data.message
       );
     } else {
-      errorApiOffline();
+      errorApiOffline(weatherHolder);
     }
   }
 }
@@ -91,4 +91,5 @@ async function reverseGeo() {
     console.log(error);
   }
 }
-getLocation();
+
+setTimeout(getLocation(), 5000);

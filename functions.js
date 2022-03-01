@@ -57,7 +57,7 @@ export function errorSearchInput(weatherHolder) {
     "Sorry, I could not find that location. Please try again.";
 }
 
-function errorApiOffline(weatherHolder) {
+export function errorApiOffline(weatherHolder) {
   weatherHolder.innerHTML = "";
   document.getElementById("currentDay").textContent = "";
   document.getElementById("currentWeather").textContent = "";
