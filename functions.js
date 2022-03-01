@@ -46,3 +46,9 @@ export function errorLocation() {
   document.getElementById("locationId").textContent =
     "Please enable location permissions to get local weather, otherwise use search";
 }
+export function errorSearchInput(weatherHolder) {
+  weatherHolder.innerHTML = "";
+  document.getElementById("currentDayId").textContent = "";
+  document.getElementById("locationId").textContent =
+    "Sorry, I could not find that location. Please try again.";
+}

@@ -8,6 +8,7 @@ import {
   domCurrentWeather,
   domAddLocationDetails,
   errorLocation,
+  errorSearchInput,
 } from "./functions.js";
 const d = new Date();
 let locationLatitude;
@@ -29,7 +30,6 @@ async function getWeather() {
     const weatherApi = await axios.get(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${locationLatitude}&lon=${locationLongitude}&units=metric&exclude=hourly,minutely&appid=${apiKey}`
     );
-    console.log(weatherApi.status);
     state = { days: weatherApi.data.daily };
     weatherHolder.innerHTML = "";
     for (let i = 1; i < 3; i++) {
@@ -39,7 +39,7 @@ async function getWeather() {
     let currentState = weatherApi.data.current;
     domCurrentWeather(weekday, d, currentState);
   } catch (error) {
-    alert("ERROR has occurred");
+    alert(error.message);
   }
 }
 //Finds lat and long from user submission, returns getWeather function with new desired location
@@ -54,7 +54,7 @@ async function forwardGeo() {
     getWeather();
     reverseGeo();
   } catch (error) {
-    alert("Sorry, could not find that location");
+    errorSearchInput(weatherHolder);
   }
 }
 //Getting user location from navigator
