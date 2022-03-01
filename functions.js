@@ -42,3 +42,7 @@ export function domAddLocationDetails(geoDistrict, geoCity, geoCountry) {
   document.getElementById("locationId").textContent =
     "You are in " + geoDistrict + geoCity + geoCountry;
 }
+export function errorLocation() {
+  document.getElementById("locationId").textContent =
+    "Please enable location permissions to get local weather, otherwise use search";
+}
