@@ -92,4 +92,4 @@ async function reverseGeo() {
   }
 }
 
-setTimeout(getLocation(), 5000);
+getLocation();
