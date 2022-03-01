@@ -9,6 +9,7 @@ import {
   domAddLocationDetails,
   errorLocation,
   errorSearchInput,
+  errorApiOffline,
 } from "./functions.js";
 const d = new Date();
 let locationLatitude;
@@ -44,7 +45,7 @@ async function getWeather() {
         "Sorry, we have encountered an error: " + error.response.data.message
       );
     } else {
-      alert("API is offline");
+      errorApiOffline();
     }
   }
 }
