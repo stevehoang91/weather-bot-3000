@@ -52,7 +52,7 @@ async function getWeather() {
 }
 //Finds lat and long from user submission, returns getWeather function with new desired location
 async function forwardGeo() {
-  const regexCheck = /^[a-zA-Z ]*$/gm;
+  const regexCheck = /[A-Za-zÀ-ÖØ-öø-ÿ]/gm;
   if (regexCheck.test(searchLocationRef.value)) {
     try {
       const locationClick = await axios.get(
