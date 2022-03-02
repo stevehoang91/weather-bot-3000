@@ -10,6 +10,7 @@ import {
   errorLocation,
   errorSearchInput,
   errorApiOffline,
+  errorNotLetters,
 } from "./functions.js";
 const d = new Date();
 let locationLatitude;
@@ -51,17 +52,22 @@ async function getWeather() {
 }
 //Finds lat and long from user submission, returns getWeather function with new desired location
 async function forwardGeo() {
-  try {
-    const locationClick = await axios.get(
-      `https://api.opencagedata.com/geocode/v1/json?q=${searchLocationRef.value}&key=${geoApiKey}`
-    );
-    let locationState = locationClick.data.results[0].geometry;
-    locationLatitude = locationState.lat;
-    locationLongitude = locationState.lng;
-    getWeather();
-    reverseGeo();
-  } catch (error) {
-    errorSearchInput(weatherHolder);
+  const regexCheck = /^[a-zA-Z ]*$/gm;
+  if (regexCheck.test(searchLocationRef.value)) {
+    try {
+      const locationClick = await axios.get(
+        `https://api.opencagedata.com/geocode/v1/json?q=${searchLocationRef.value}&key=${geoApiKey}`
+      );
+      let locationState = locationClick.data.results[0].geometry;
+      locationLatitude = locationState.lat;
+      locationLongitude = locationState.lng;
+      getWeather();
+      reverseGeo();
+    } catch (error) {
+      errorSearchInput(weatherHolder);
+    }
+  } else {
+    errorNotLetters(weatherHolder);
   }
 }
 //Getting user location from navigator

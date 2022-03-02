@@ -189,6 +189,10 @@ a:active {
   font-size: 13px;
 }
 
+#locationId {
+  margin: 5px;
+}
+
 @media screen and (min-width: 600px) {
   .container {
     padding: 0% 20%;

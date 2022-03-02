@@ -67,3 +67,13 @@ export function errorApiOffline(weatherHolder) {
   document.getElementById("locationId").textContent =
     "Sorry, the API is offline";
 }
+export function errorNotLetters(weatherHolder) {
+  weatherHolder.innerHTML = "";
+  document.getElementById("currentDay").textContent = "";
+  document.getElementById("currentWeather").textContent = "";
+  document.getElementById("currentTemp").textContent = "";
+  document.getElementById("currentFeelsLike").textContent = "";
+  document.getElementById("image").src = "/icons/invisible.png";
+  document.getElementById("locationId").textContent =
+    "Sorry, I can only understand letters. Please try again";
+}
