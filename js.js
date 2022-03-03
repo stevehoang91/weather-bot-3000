@@ -53,7 +53,9 @@ async function getWeather() {
 //Finds lat and long from user submission, returns getWeather function with new desired location
 async function forwardGeo() {
   const regexCheck = /[A-Za-zÀ-ÖØ-öø-ÿ]/gm;
-  if (regexCheck.test(searchLocationRef.value)) {
+  if (!regexCheck.test(searchLocationRef.value)) {
+    return errorNotLetters(weatherHolder);
+  } else {
     try {
       const locationClick = await axios.get(
         `https://api.opencagedata.com/geocode/v1/json?q=${searchLocationRef.value}&key=${geoApiKey}`
@@ -66,8 +68,6 @@ async function forwardGeo() {
     } catch (error) {
       errorSearchInput(weatherHolder);
     }
-  } else {
-    errorNotLetters(weatherHolder);
   }
 }
 //Getting user location from navigator
